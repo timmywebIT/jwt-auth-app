@@ -1,15 +1,11 @@
 <template>
-  <div>
-    <h1>Форма</h1>
-    <form @submit.prevent="submitForm">
-      <input v-model="name" placeholder="Имя" />
-      <button type="submit">Отправить</button>
-    </form>
-    <p v-if="response">{{ response }}</p>
+  <div class="flex items-center justify-center min-h-screen">
+    <RegisterForm></RegisterForm>
   </div>
 </template>
 
 <script setup>
+import RegisterForm from "@/components/RegisterForm.vue";
 import { ref } from 'vue'
 import axios from 'axios'
 
@@ -22,3 +18,9 @@ function submitForm() {
       .catch(err => response.value = 'Ошибка')
 }
 </script>
+
+<style>
+body {
+  background: #d1bfb0;
+}
+</style>
