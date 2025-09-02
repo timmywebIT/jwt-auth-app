@@ -48,12 +48,12 @@ class User extends Authenticatable implements JWTSubject
     }
     public function getJWTIdentifier()
     {
-        return $this->getKey(); // обычно это id
+        return $this->getKey();
     }
 
     public function getJWTCustomClaims()
     {
-        return []; // можно добавить кастомные поля в токен, если нужно
+        return [];
     }
 
 }
