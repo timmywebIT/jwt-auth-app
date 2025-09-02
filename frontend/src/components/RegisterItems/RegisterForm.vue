@@ -19,8 +19,8 @@
 </template>
 
 <script setup>
-import RegisterButton from "@/components/RegisterButton.vue";
-import RegisterIcon from "@/components/RegisterIcon.vue";
+import RegisterButton from "@/components/RegisterItems/RegisterButton.vue";
+import RegisterIcon from "@/components/RegisterItems/RegisterIcon.vue";
 </script>
 
 <style scoped>

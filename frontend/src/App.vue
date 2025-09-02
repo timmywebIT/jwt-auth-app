@@ -1,11 +1,11 @@
 <template>
   <div class="flex items-center justify-center min-h-screen">
-    <RegisterForm></RegisterForm>
+    <router-view></router-view>
+
   </div>
 </template>
 
 <script setup>
-import RegisterForm from "@/components/RegisterForm.vue";
 import { ref } from 'vue'
 import axios from 'axios'
 

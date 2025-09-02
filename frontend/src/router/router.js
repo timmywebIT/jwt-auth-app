@@ -4,12 +4,16 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         {
-            // path: '/index',
-            // component: () => import('../views/pages/main/index.vue'),
-            // name: 'main.home'
+            path: '/login',
+            component: () => import('@/views/pages/login.vue'),
+            name: 'login'
+        },
+        {
+            path: '/register',
+            component: () => import('@/views/pages/register.vue'),
+            name: 'register'
         },
     ]
 })
-
 
 export default router
