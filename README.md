@@ -46,3 +46,20 @@ public function register(Request $request)
    ], 201);
 }
 ```
+## 📤 Отправка данных регистрации (Vue + Axios)
+
+Пример действия `createUser`, отправляющего данные формы на API `/register`.
+
+```js
+actions: {
+  async createUser() {
+    try {
+      await axios.post('http://127.0.0.1:8000/api/register', this.user);
+      this.resetUser();
+      showRegisterSuccess();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+}
+```
