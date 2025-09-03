@@ -14,24 +14,25 @@ export const useAuthStore = defineStore('auth', {
     }),
 
     getters: {
-        isAuthenticated: (state) => !!state.token
+        isAdmin: (state) => state.role === 'admin',
+        isUser: (state) => state.role === 'user'
     },
 
     actions: {
         async createUser() {
             try {
-                await axios.post('http://127.0.0.1:8000/api/register', this.user)
-                this.resetUser()
-                showRegisterSuccess()
+                await axios.post('http://127.0.0.1:8000/api/register', this.user);
+                this.resetUser();
+                showRegisterSuccess();
             } catch (err) {
-                console.log(err)
+                console.log(err);
             }
         },
         async loginUser(router) {
             try {
                 const { data } = await axios.post('http://127.0.0.1:8000/api/login', this.user);
                 this.resetUser();
-                this.saveTokens(data)
+                this.saveTokens(data);
                 this.routerPush(router, data);
             } catch (err) {
                 console.error('Ошибка входа:', err);
@@ -48,7 +49,7 @@ export const useAuthStore = defineStore('auth', {
                 localStorage.removeItem('role');
                 router.push('/login');
             } catch (err) {
-                console.log(err)
+                console.log(err);
             }
         },
         resetUser() {

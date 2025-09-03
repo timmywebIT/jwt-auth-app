@@ -16,12 +16,20 @@ const router = createRouter({
         {
             path: '/admin',
             component: () => import('@/views/pages/admin/index.vue'),
-            meta: {requiresAuth: true, role: 'admin'},
+            name: 'admin',
+            meta: {
+                requiresAuth: true,
+                role: 'admin'
+            },
         },
         {
             path: '/user',
             component: () => import('@/views/pages/user/index.vue'),
-            meta: {requiresAuth: true, role: 'user'},
+            name: 'user',
+            meta: {
+                requiresAuth: true,
+                role: 'user'
+            },
         },
     ]
 })
@@ -29,11 +37,9 @@ const router = createRouter({
 router.beforeEach((to, _, next) => {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
-
     if (!to.meta.requiresAuth) return next();
     if (!token) return next('/login');
     if (to.meta.role && to.meta.role !== role) return next('/unauthorized');
-
     next();
 });
 

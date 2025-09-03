@@ -1,10 +1,19 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
-<h1>Привет, ты пользователь !</h1>
+  <div class="flex justify-center mb-4">
+    <h1>Привет, ты пользователь !</h1>
+    <FormButton @click="auth.logoutUser(router)">Выйти</FormButton>
+  </div>
+
 </template>
+
+<script setup>
+import FormButton from "@/components/FormItems/FormButton.vue";
+import {useAuthStore} from "@/stores/auth.js";
+import { useRouter } from 'vue-router';
+
+const auth = useAuthStore()
+const router = useRouter();
+</script>
 
 <style scoped>
 
