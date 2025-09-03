@@ -49,4 +49,14 @@ class AuthController extends Controller
             'role' => $user->role
         ], 200);
     }
+
+    public function logout()
+    {
+        try {
+            JWTAuth::invalidate(JWTAuth::getToken());
+            return response()->json(['message' => 'Вы вышли из системы']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Не удалось выйти'], 500);
+        }
+    }
 }

@@ -15,3 +15,5 @@ Route::middleware(['auth:api', 'role:admin'])->get('/admin/dashboard', function 
 Route::middleware(['auth:api', 'role:user'])->get('/user/dashboard', function () {
     return response()->json(['message' => 'Welcome, User']);
 });
+
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api');

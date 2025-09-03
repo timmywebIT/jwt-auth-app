@@ -23,7 +23,6 @@ import FormButton from "@/components/FormItems/FormButton.vue";
 
 
 import FormInput from "@/components/FormItems/FormInput.vue";
-
 import {useAuthStore} from "@/stores/auth.js";
 import FormIcon from "@/components/FormItems/FormIcon.vue";
 

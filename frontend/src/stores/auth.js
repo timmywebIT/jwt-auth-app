@@ -8,10 +8,14 @@ export const useAuthStore = defineStore('auth', {
             name:'',
             email:'',
             password:'',
-        }
+        },
+        token: localStorage.getItem('token') || null,
+        role: localStorage.getItem('role') || null
     }),
 
-    getters: {},
+    getters: {
+        isAuthenticated: (state) => !!state.token
+    },
 
     actions: {
         async createUser() {
@@ -26,18 +30,25 @@ export const useAuthStore = defineStore('auth', {
         async loginUser(router) {
             try {
                 const { data } = await axios.post('http://127.0.0.1:8000/api/login', this.user);
-
-                // Сохраняем токен и роль
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('role', data.role);
-
-                // Очищаем форму
                 this.resetUser();
-
-                // Перенаправляем по роли
-                router.push(data.role === 'admin' ? '/admin' : '/user');
+                this.saveTokens(data)
+                this.routerPush(router, data);
             } catch (err) {
                 console.error('Ошибка входа:', err);
+            }
+        },
+        async logoutUser(router) {
+            try {
+                await axios.post('http://127.0.0.1:8000/api/logout', {}, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                localStorage.removeItem('token');
+                localStorage.removeItem('role');
+                router.push('/login');
+            } catch (err) {
+                console.log(err)
             }
         },
         resetUser() {
@@ -45,5 +56,14 @@ export const useAuthStore = defineStore('auth', {
             this.user.email = ''
             this.user.password = ''
         },
+        saveTokens(data) {
+            this.token = data.token;
+            this.role = data.role;
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('role', data.role);
+        },
+        routerPush(router, data) {
+            router.push(data.role === 'admin' ? '/admin' : '/user');
+        }
     },
 })
