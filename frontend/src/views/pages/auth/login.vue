@@ -10,18 +10,20 @@
       <FormInput v-model="auth.user.password" type="password" placeholder="Введите пароль"></FormInput>
     </div>
     <div  class="flex justify-center mt-4">
-      <FormButton @click="auth.loginUser()">Войти</FormButton>
+      <FormButton @click="auth.loginUser(router)">Войти</FormButton>
     </div>
   </div>
 </template>
 
 <script setup>
 import {useAuthStore} from "@/stores/auth.js";
+import { useRouter } from 'vue-router';
 import FormInput from "@/components/FormItems/FormInput.vue";
 import FormIcon from "@/components/FormItems/FormIcon.vue";
 import FormButton from "@/components/FormItems/FormButton.vue";
 
 const auth = useAuthStore()
+const router = useRouter();
 
 </script>
 
