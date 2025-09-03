@@ -18,11 +18,16 @@ class AuthController extends Controller
        $user = User::create([
            'name' => $validate['name'],
            'email' => $validate['email'],
-           'password' => bcrypt($validate['password'])
+           'password' => bcrypt($validate['password']),
+           'role' => 'user'
        ]);
 
        $token = JWTAuth::fromUser($user);
-       return response()->json(['token' => $token], 201);
+
+        return response()->json([
+            'token' => $token,
+            'role' => $user->role
+        ], 201);
     }
 
     public function login(Request $request)
@@ -36,9 +41,12 @@ class AuthController extends Controller
             return response()->json(['error' => 'invalid_credentials'], 401);
         }
 
+        $user = auth()->user();
+
         return response()->json([
             'message' => 'Успешный вход!',
-            'token' => $token
+            'token' => $token,
+            'role' => $user->role
         ], 200);
     }
 }
