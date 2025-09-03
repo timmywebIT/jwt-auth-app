@@ -23,6 +23,14 @@ export const useAuthStore = defineStore('auth', {
                 console.log(err)
             }
         },
+        async loginUser() {
+            try {
+                await axios.post('http://127.0.0.1:8000/api/login', this.user)
+                this.resetUser()
+            } catch (err) {
+                console.log(err)
+            }
+        },
         resetUser() {
             this.user.name = ''
             this.user.email = ''
